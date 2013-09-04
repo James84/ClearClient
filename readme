@@ -12,11 +12,14 @@ To make an Http request there are a number of methods you can use:
 
 	Get<T>:
 		If you wish to deserialize the response into an object you can use the generic Get<T> method:
+		
 			var response = client.Get<object>("<url/query params>");
+			
 		This will return the response in the object of your choice.
 	
 	GetJson:
 		If you simply want to return a Json string use GetJson:
+		
 			var response = client.GetJson("<url/query params>");
 			
 	GetXML:
@@ -25,9 +28,11 @@ To make an Http request there are a number of methods you can use:
 			
 	Async methods:
 	All of the above methods also have an an asynchronous counterpart which utilises the new async features of .NET 4.5:
+	
 		GetAsync<T>
 		GetJsonAsync
 		GetXmlAsync
+		
 	These all return a Task which can be awaited using the await keyword for asynchronous programming:
 		var response = await client.GetAsync<object>("search?keywords=developer");
 	
