@@ -1,0 +1,33 @@
+Clear client allows you to make http calls using http client found in .NET 4.5 in a quick and easy way.
+
+To get started add a reference to the ClearClient library and then to create a GenericClient object; this will set up the HttpClient behind the scenes:
+
+	GenericClient client = new GenericClient("base url");
+
+If you need to use basic authentication you can do this too by simply wacking in the username and password after the url in the constructor like this:
+
+	GenericClient client = new GenericClient("<base url>", "<username>", "<password>");
+
+To make an Http request there are a number of methods you can use:
+
+	Get<T>:
+		If you wish to deserialize the response into an object you can use the generic Get<T> method:
+			var response = client.Get<object>("<url/query params>");
+		This will return the response in the object of your choice.
+	
+	GetJson:
+		If you simply want to return a Json string use GetJson:
+			var response = client.GetJson("<url/query params>");
+			
+	GetXML:
+		If you want the response in XML call GetXML:
+			var response = client.GetXML("<url/query params>");
+			
+	Async methods:
+	All of the above methods also have an an asynchronous counterpart which utilises the new async features of .NET 4.5:
+		GetAsync<T>
+		GetJsonAsync
+		GetXmlAsync
+	These all return a Task which can be awaited using the await keyword for asynchronous programming:
+		var response = await client.GetAsync<object>("search?keywords=developer");
+	
