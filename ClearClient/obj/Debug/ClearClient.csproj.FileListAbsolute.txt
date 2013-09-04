@@ -1,0 +1,7 @@
+E:\Dropbox\ProgrammerStuff\git\ClearClient\ClearClient\obj\Debug\ClearClient.csprojResolveAssemblyReference.cache
+E:\Dropbox\ProgrammerStuff\git\ClearClient\ClearClient\bin\Debug\ClearClient.dll
+E:\Dropbox\ProgrammerStuff\git\ClearClient\ClearClient\bin\Debug\ClearClient.pdb
+E:\Dropbox\ProgrammerStuff\git\ClearClient\ClearClient\bin\Debug\Newtonsoft.Json.dll
+E:\Dropbox\ProgrammerStuff\git\ClearClient\ClearClient\bin\Debug\Newtonsoft.Json.xml
+E:\Dropbox\ProgrammerStuff\git\ClearClient\ClearClient\obj\Debug\ClearClient.dll
+E:\Dropbox\ProgrammerStuff\git\ClearClient\ClearClient\obj\Debug\ClearClient.pdb
