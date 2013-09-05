@@ -11,9 +11,16 @@ namespace ClearClient
     {
         private HttpClient client;
 
+        /// <summary>
+        /// Gets the HttpResponseMessage for the last http request made.
+        /// If no request has been made an empty HttpResponseMessage object will be returned
+        /// </summary>
+        public HttpResponseMessage ResponseMessage { get; private set; }
+
         public GenericClient(string baseAddress)
         {
             Init(baseAddress);
+            ResponseMessage = new HttpResponseMessage();
         }
 
         /// <summary>
@@ -25,6 +32,7 @@ namespace ClearClient
         public GenericClient(string baseAddress, string username, string password)
         {
             Init(baseAddress);
+            ResponseMessage = new HttpResponseMessage();
             SetBasicAuth(username, password);
         }
 
@@ -39,8 +47,8 @@ namespace ClearClient
             try
             {
                 var cleanUrl = CleanUrl(url);
-                var response = client.GetAsync(cleanUrl).Result;
-                var result = JsonConvert.DeserializeObject<T>(response.Content.ReadAsStringAsync().Result);
+                ResponseMessage = client.GetAsync(cleanUrl).Result;
+                var result = JsonConvert.DeserializeObject<T>(ResponseMessage.Content.ReadAsStringAsync().Result);
                 return result;
             }
             catch (Exception ex)
@@ -60,8 +68,8 @@ namespace ClearClient
             try
             {
                 var cleanUrl = CleanUrl(url);
-                var response = await client.GetAsync(cleanUrl);
-                var result = JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+                ResponseMessage = await client.GetAsync(cleanUrl);
+                var result = JsonConvert.DeserializeObject<T>(await ResponseMessage.Content.ReadAsStringAsync());
                 return result;
             }
             catch (Exception ex)
@@ -79,8 +87,8 @@ namespace ClearClient
         {
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             var cleanUrl = CleanUrl(url);
-            var response = client.GetAsync(cleanUrl).Result;
-            return response.Content.ReadAsStringAsync().Result;
+            ResponseMessage = client.GetAsync(cleanUrl).Result;
+            return ResponseMessage.Content.ReadAsStringAsync().Result;
         }
 
         /// <summary>
@@ -92,8 +100,8 @@ namespace ClearClient
         {
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             var cleanUrl = CleanUrl(url);
-            var response = await client.GetAsync(cleanUrl);
-            return await response.Content.ReadAsStringAsync();
+            ResponseMessage = await client.GetAsync(cleanUrl);
+            return await ResponseMessage.Content.ReadAsStringAsync();
         }
 
         /// <summary>
@@ -105,8 +113,8 @@ namespace ClearClient
         {
             client.DefaultRequestHeaders.Add("Accept", "application/xml");
             var cleanUrl = CleanUrl(url);
-            var response = client.GetAsync(cleanUrl).Result;
-            return response.Content.ReadAsStringAsync().Result;
+            ResponseMessage = client.GetAsync(cleanUrl).Result;
+            return ResponseMessage.Content.ReadAsStringAsync().Result;
         }
 
         /// <summary>
@@ -118,8 +126,8 @@ namespace ClearClient
         {
             client.DefaultRequestHeaders.Add("Accept", "application/xml");
             var cleanUrl = CleanUrl(url);
-            var response = await client.GetAsync(cleanUrl);
-            return await response.Content.ReadAsStringAsync();
+            ResponseMessage = await client.GetAsync(cleanUrl);
+            return await ResponseMessage.Content.ReadAsStringAsync();
         }
 
         public void Dispose()
@@ -134,7 +142,7 @@ namespace ClearClient
             if (string.IsNullOrEmpty(baseAddress))
                 throw new ArgumentException("No base url passed to constructor.");
 
-            //*****************************************clean up base address before sending*************************************//
+            //*****************************************clean up base address before assigning to base address*********************//
             baseAddress = baseAddress.StartsWith("http://") || baseAddress.StartsWith("https://")
                               ? baseAddress
                               : "http://" + baseAddress;
@@ -146,7 +154,7 @@ namespace ClearClient
             {
                 BaseAddress = new Uri(baseAddress)
             };
-            //******************************************************************************************************************//
+            //********************************************************************************************************************//
         }
 
         //set up basic authentication
