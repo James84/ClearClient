@@ -130,16 +130,38 @@ namespace ClearClient
             return await ResponseMessage.Content.ReadAsStringAsync();
         }
 
+        /// <summary>
+        /// make http post request
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="model"></param>
         public void Post(string url, object model)
         {
-            var content = new StringContent(model.ToJson(), Encoding.UTF8, "application/json");
+            var content = model.Serialize();
             ResponseMessage = client.PostAsync(url, content).Result;
         }
 
+        /// <summary>
+        /// make asynchronous http post request
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="model"></param>
         public async void PostAsync(string url, object model)
         {
-            var content = new StringContent(model.ToJson(), Encoding.UTF8, "application/json");
+            var content = model.Serialize();
             ResponseMessage = await client.PostAsync(url, content);
+        }
+
+        public void Put(string url, object model)
+        {
+            var content = model.Serialize();
+            ResponseMessage = client.PutAsync(url, content).Result;
+        }
+
+        public async void PutAsync(string url, object model)
+        {
+            var content = model.Serialize();
+            ResponseMessage = await client.PutAsync(url, content);
         }
 
         public void Dispose()
@@ -154,7 +176,7 @@ namespace ClearClient
             if (string.IsNullOrEmpty(baseAddress))
                 throw new ArgumentException("No base url passed to constructor.");
 
-            //*****************************************clean up base address before assigning to base address*********************//
+            //*********************clean up base address before assigning to base address*********************//
             baseAddress = baseAddress.StartsWith("http://") || baseAddress.StartsWith("https://")
                               ? baseAddress
                               : "http://" + baseAddress;
@@ -166,7 +188,7 @@ namespace ClearClient
             {
                 BaseAddress = new Uri(baseAddress)
             };
-            //********************************************************************************************************************//
+            //************************************************************************************************//
         }
 
         //set up basic authentication
@@ -182,6 +204,7 @@ namespace ClearClient
         {
             return url.StartsWith("/") ? url.Substring(1, url.Length - 1) : url;
         }
+
 
         #endregion
     }
