@@ -24,15 +24,23 @@ To make an Http request there are a number of methods you can use:
 			
 	GetXML:
 		If you want the response in XML call GetXML:
-			var response = client.GetXML("<url/query params>");
 			
+			var response = client.GetXML("<url/query params>");
+	
+	Post:
+		For post requests use the Post method with the url and the object you wish to create:
+			
+			client.Post(<url>, <object>)
+	
 	Async methods:
 	All of the above methods also have an an asynchronous counterpart which utilises the new async features of .NET 4.5:
 	
 		GetAsync<T>
 		GetJsonAsync
 		GetXmlAsync
+		PostAsync
 		
 	These all return a Task which can be awaited using the await keyword for asynchronous programming:
+	
 		var response = await client.GetAsync<object>("search?keywords=developer");
 	

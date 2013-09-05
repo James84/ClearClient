@@ -130,6 +130,18 @@ namespace ClearClient
             return await ResponseMessage.Content.ReadAsStringAsync();
         }
 
+        public void Post(string url, object model)
+        {
+            var content = new StringContent(model.ToJson(), Encoding.UTF8, "application/json");
+            ResponseMessage = client.PostAsync(url, content).Result;
+        }
+
+        public async void PostAsync(string url, object model)
+        {
+            var content = new StringContent(model.ToJson(), Encoding.UTF8, "application/json");
+            ResponseMessage = await client.PostAsync(url, content);
+        }
+
         public void Dispose()
         {
             client.Dispose();
