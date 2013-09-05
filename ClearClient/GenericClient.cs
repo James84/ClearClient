@@ -164,6 +164,16 @@ namespace ClearClient
             ResponseMessage = await client.PutAsync(url, content);
         }
 
+        public void Delete(string url)
+        {
+            ResponseMessage = client.DeleteAsync(url).Result;
+        }
+
+        public async void DeleteAsync(string url)
+        {
+            ResponseMessage = await client.DeleteAsync(url);
+        }
+
         public void Dispose()
         {
             client.Dispose();
