@@ -204,8 +204,7 @@ namespace ClearClient
         {
             return url.StartsWith("/") ? url.Substring(1, url.Length - 1) : url;
         }
-
-
+        
         #endregion
     }
 }

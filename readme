@@ -32,6 +32,12 @@ To make an Http request there are a number of methods you can use:
 			
 			client.Post(<url>, <object>)
 	
+	Put:
+		Put requests work as with post requests:
+			
+			client.Put(<url>, <object>)
+		
+	
 	Async methods:
 	All of the above methods also have an an asynchronous counterpart which utilises the new async features of .NET 4.5:
 	
@@ -39,6 +45,7 @@ To make an Http request there are a number of methods you can use:
 		GetJsonAsync
 		GetXmlAsync
 		PostAsync
+		PutAsync
 		
 	These all return a Task which can be awaited using the await keyword for asynchronous programming:
 	
