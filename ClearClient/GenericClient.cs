@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -172,6 +173,23 @@ namespace ClearClient
         public async void DeleteAsync(string url)
         {
             ResponseMessage = await client.DeleteAsync(url);
+        }
+
+        /// <summary>
+        /// Allows you to set the headers made in the http request
+        /// </summary>
+        /// <param name="headers">Pass in the header as a key-value pair, 
+        /// the key being the header type and the value is the value of the header</param>
+        public void SetHeaders(params KeyValuePair<string,string>[] headers)
+        {
+            foreach (var keyValuePair in headers)
+            {
+                try
+                {
+                    client.DefaultRequestHeaders.Add(keyValuePair.Key, keyValuePair.Value);
+                }
+                catch{continue;}
+            }
         }
 
         public void Dispose()
