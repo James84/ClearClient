@@ -16,5 +16,10 @@ namespace ClearClient
         {
             return new StringContent(content.ToJson(), Encoding.UTF8, "application/json");
         }
+
+        public static T FromJson<T>(this string json)
+        {
+            return JsonConvert.DeserializeObject<T>(json);
+        }
     }
 }

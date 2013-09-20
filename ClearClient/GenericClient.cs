@@ -49,8 +49,7 @@ namespace ClearClient
             {
                 var cleanUrl = CleanUrl(url);
                 ResponseMessage = client.GetAsync(cleanUrl).Result;
-                var result = JsonConvert.DeserializeObject<T>(ResponseMessage.Content.ReadAsStringAsync().Result);
-                return result;
+                return ResponseMessage.Content.ReadAsStringAsync().Result.FromJson<T>();
             }
             catch (Exception ex)
             {
@@ -70,8 +69,8 @@ namespace ClearClient
             {
                 var cleanUrl = CleanUrl(url);
                 ResponseMessage = await client.GetAsync(cleanUrl);
-                var result = JsonConvert.DeserializeObject<T>(await ResponseMessage.Content.ReadAsStringAsync());
-                return result;
+                var json = await ResponseMessage.Content.ReadAsStringAsync();
+                return json.FromJson<T>();
             }
             catch (Exception ex)
             {
