@@ -2,7 +2,7 @@ Clear client allows you to make http calls using http client found in .NET 4.5 i
 
 To get started add a reference to the ClearClient library and then to create a GenericClient object; this will set up the HttpClient behind the scenes:
 
-	GenericClient client = new GenericClient("base url");
+    GenericClient client = new GenericClient("base url");
 
 If you need to use basic authentication you can do this too by simply wacking in the username and password after the url in the constructor like this:
 
